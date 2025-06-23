@@ -30,10 +30,10 @@ public class Member {
     private Set<Product> products = new HashSet<>();
 
     // 추후 계좌 잔액 더하기, 빼기 메서드 추가 필요 => service 계층에 넣을지, 여기 둘지 고민...
-//    public void chargeDeposit(int money){
-//        this.deposit += money;
-//    }
-//    public void useDeposit(int money) {
-//        this.deposit -= money;
-//    }
+    public void chargeDeposit(int money){
+        this.deposit += money;
+    }
+    public void useDeposit(int money) {
+        this.deposit -= money;
+    }
 }

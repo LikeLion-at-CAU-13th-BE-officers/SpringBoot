@@ -36,4 +36,7 @@ public class Product extends BaseTimeEntity {
     private List<ProductOrders> productOrders;
 
     // 추후 stock 줄이는 로직 필요 => service 계층에 넣을지, 여기 넣을지는 고민...
+    public void reduceStock(int amount){
+        this.stock -= amount;
+    }
 }
