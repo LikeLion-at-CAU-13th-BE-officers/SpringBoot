@@ -21,7 +21,10 @@ public class Member {
     private String address;
     private String email;
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
     private Role role; // 판매자면 SELLER, 구매자면 BUYER
+
     private Boolean isAdmin; // 관리자 계정 여부
 
     private Integer deposit; // 현재 계좌 잔액

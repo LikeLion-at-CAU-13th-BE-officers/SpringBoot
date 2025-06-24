@@ -21,6 +21,7 @@ public class Orders extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private DeliverStatus deliverStatus; // 배송상태
 
     @ManyToOne
