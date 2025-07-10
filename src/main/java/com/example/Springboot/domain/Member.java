@@ -32,6 +32,9 @@ public class Member {
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
+    @Column(nullable = false)
+    private Integer age;
+
     // 추후 계좌 잔액 더하기, 빼기 메서드 추가 필요 => service 계층에 넣을지, 여기 둘지 고민...
     public void chargeDeposit(int money){
         this.deposit += money;
@@ -42,7 +45,7 @@ public class Member {
 
     @Builder
     public Member(String name, String address, String email, String phoneNumber,
-                  Role role, Boolean isAdmin, Integer deposit) {
+                  Role role, Boolean isAdmin, Integer deposit, Integer age) {
         this.name = name;
         this.address = address;
         this.email = email;
@@ -50,5 +53,6 @@ public class Member {
         this.role = role;
         this.isAdmin = isAdmin;
         this.deposit = deposit;
+        this.age=age;
     }
 }
