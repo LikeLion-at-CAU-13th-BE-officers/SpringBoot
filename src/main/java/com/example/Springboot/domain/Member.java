@@ -18,6 +18,7 @@ public class Member {
     private Long id;
 
     private String name;
+    private String password;
     private String address;
     private String email;
     private String phoneNumber;
@@ -32,7 +33,7 @@ public class Member {
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private Integer age;
 
     // 추후 계좌 잔액 더하기, 빼기 메서드 추가 필요 => service 계층에 넣을지, 여기 둘지 고민...
@@ -44,9 +45,10 @@ public class Member {
     }
 
     @Builder
-    public Member(String name, String address, String email, String phoneNumber,
+    public Member(String name, String password, String address, String email, String phoneNumber,
                   Role role, Boolean isAdmin, Integer deposit, Integer age) {
         this.name = name;
+        this.password = password;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
