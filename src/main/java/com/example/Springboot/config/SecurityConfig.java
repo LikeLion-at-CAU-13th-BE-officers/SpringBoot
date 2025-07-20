@@ -44,7 +44,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable) // 일반은 비활성화
             .authorizeHttpRequests((auth) -> auth
                 .requestMatchers("/join", "/login").permitAll() // 모두 허용
-                .requestMatchers("/api/**").authenticated()) // 인증된 사용자만 허용
+                .requestMatchers("/**").authenticated()) // 인증된 사용자만 허용
             .formLogin(Customizer.withDefaults()) // login 설정
             .logout(Customizer.withDefaults()) // logout 설정
             .userDetailsService(customUserDetailsService)
