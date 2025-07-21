@@ -15,4 +15,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     // 이름이 주어진 값으로 시작
     Page<Member> findByNameStartingWith(String prefix, Pageable pageable);
+
+    // 이름 중복 검사 쿼리
+    boolean existsByName(String name);
 }
