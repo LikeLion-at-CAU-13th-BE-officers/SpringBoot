@@ -10,10 +10,21 @@ spring:
       path: /h2-console # H2 콘솔의 접근 경로
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true # 실제 디비로 나가는 sql을 보여줌
   sql:
     init:
       mode: always # 애플리케이션 시작 시 스크립트 초기화 (기본값: embedded)
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id : ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE-CLIENT-SECRET}
+            scope:
+              - email
+              - profile
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
