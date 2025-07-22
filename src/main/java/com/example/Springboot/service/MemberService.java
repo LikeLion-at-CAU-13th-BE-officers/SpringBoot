@@ -38,10 +38,10 @@ public class MemberService {
     // 비밀번호 인코더 DI(생성자 주입)
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void join(JoinRequestDto joinRequestDto) {
+    public String join(JoinRequestDto joinRequestDto) {
         // 해당 name이 이미 존재하는 경우
         if (memberRepository.existsByName(joinRequestDto.getName())) {
-            return; // 나중에는 예외 처리
+            throw new IllegalArgumentException("해당 이름을 가진 사용자가 이미 존재합니다.");
         }
 
         // 유저 객체 생성
@@ -49,5 +49,7 @@ public class MemberService {
 
         // 유저 정보 저장
         memberRepository.save(member);
+
+        return member.getName();
     }
 }
