@@ -10,7 +10,7 @@ spring:
       path: /h2-console # H2 콘솔의 접근 경로
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true # 실제 디비로 나가는 sql을 보여줌
@@ -28,3 +28,5 @@ spring:
               - email
               - profile
             redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+jwt:
+  secret: wgP5RLnvSAn1jYwmQfAj0mN9vFtUjezRUnbpeyFUM80FebMz+jqs38fj5MPOMp2pAL5inafm2c9vtyQP0wxmbHCfuNejCI07m/loW6Qh3trVF1nVL0gX9qfpO7MYDRPeRkaYS7MP4Em4yLPINf0kVfeTBSSWPeZ8YIVsynYMUp3uHX7zIIgvNaoa3JxDvNeeURkDEDqU2/BXvOC0uA28T1qGS1pSMlPSLEvE1bbt70b244r9z0ej9O7G+c/LWzP86pagKY4frWl14O/XaBTav1CzDWwIEFLyhEmz/Is5jGbtW+2dHhetiREJAge9ww+HiQUOqGgdEIBx/s8wBEs3QQ==

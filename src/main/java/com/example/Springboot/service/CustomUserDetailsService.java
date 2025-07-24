@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         Member member = memberRepository.findByName(name)
-            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+            .orElseThrow(() -> new IllegalArgumentException(name + "은 존재하지 않는 사용자입니다."));
 
         return new User(member.getName(), member.getPassword(), new ArrayList<>());
     }

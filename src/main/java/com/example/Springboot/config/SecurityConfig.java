@@ -1,5 +1,6 @@
 package com.example.Springboot.config;
 
+import com.example.Springboot.jwt.JwtAuthenticationFilter;
 import com.example.Springboot.service.CustomOAuth2UserService;
 import com.example.Springboot.service.CustomUserDetailsService;
 import java.util.Arrays;
@@ -7,13 +8,14 @@ import java.util.Collections;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
@@ -23,6 +25,7 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService; // UserDetailsService DI. 의존성 주입
     private final CustomOAuth2UserService customOAuth2UserService; // 추가
+    private final JwtAuthenticationFilter jwtFilter;
 
     private static void corsAllow(CorsConfigurer<HttpSecurity> corsConfigurer) {
         corsConfigurer.configurationSource(request -> {
@@ -44,17 +47,21 @@ public class SecurityConfig {
         http
                 .cors((SecurityConfig::corsAllow))
                 .csrf(AbstractHttpConfigurer::disable) // 일반은 비활성화
+                .sessionManagement((manager) -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //세션 로그인 안함
+                .httpBasic(AbstractHttpConfigurer::disable) // http basic auth 기반 로그인 인증창 뜨지 않게
+                .formLogin(AbstractHttpConfigurer::disable) // 기본 로그인 페이지 없애기
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/join", "/login").permitAll() // 모두 허용
                         .requestMatchers("/**").authenticated()) // 인증된 사용자만 허용
-                .oauth2Login(oauth -> oauth
-                        .userInfoEndpoint(userInfo -> userInfo
-                                .userService(customOAuth2UserService)
-                        )
-                )
+//                .oauth2Login(oauth -> oauth
+//                        .userInfoEndpoint(userInfo -> userInfo
+//                                .userService(customOAuth2UserService)
+//                        )
+//                )
 //            .formLogin(Customizer.withDefaults()) // login 설정
 //            .logout(Customizer.withDefaults()) // logout 설정
                 .userDetailsService(customUserDetailsService);
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class); // 해당 필터 전에 jwtFilter가 걸리도록
 
         return http.build();
     }
