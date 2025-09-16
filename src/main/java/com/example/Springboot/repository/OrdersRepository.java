@@ -1,0 +1,10 @@
+package com.example.Springboot.repository;
+
+import com.example.Springboot.domain.Orders;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface OrdersRepository extends JpaRepository<Orders, Long> {
+    List<Orders> findByBuyerId(Long buyerId);
+}

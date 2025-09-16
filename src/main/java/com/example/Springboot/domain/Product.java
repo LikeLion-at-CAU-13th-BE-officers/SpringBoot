@@ -36,7 +36,13 @@ public class Product extends BaseTimeEntity {
     private List<ProductOrders> productOrders;
 
     // 추후 stock 줄이는 로직 필요 => service 계층에 넣을지, 여기 넣을지는 고민...
-    public void reduceStock(int amount){
+    public void reduceStock(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("수량은 1 이상이어야 합니다.");
+        }
+        if (this.stock < amount) {
+            throw new IllegalStateException("재고가 부족합니다.");
+        }
         this.stock -= amount;
     }
 
