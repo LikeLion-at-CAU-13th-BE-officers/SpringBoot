@@ -43,6 +43,12 @@ public class Member {
         this.deposit -= money;
     }
 
+    public void withdraw(int money) {
+        if (money < 0) throw new IllegalArgumentException("상품 가격에 문제가 있습니다.");
+        if (this.deposit < money) throw new IllegalStateException("잔액이 부족합니다.");
+        this.deposit -= money;
+    }
+
     @Builder
     public Member(String name, String address, String email, String phoneNumber,
                   Role role, Boolean isAdmin, Integer deposit, Integer age) {
