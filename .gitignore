@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### secret file ###
+**/application-secret.yml
+
+### file ###
+**/.DS_Store
